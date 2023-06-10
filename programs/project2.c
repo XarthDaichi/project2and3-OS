@@ -12,77 +12,52 @@
 
 static pthread_mutex_t solution_mutex[256];
 
-static pthread_cond_t available_condition[256];
-
-static int solution_array[256] = {0};
+static unsigned long solution_array[256] = {0};
 static int solution_aux[256];
 
 static int readers_num;
 
 static char *filepath;
 static long filelen;
+
+
 static char *filename;
 
-// void merge(int arr1[], int arr2[], int left1[], int left2[], int left_size, int right1[], int right2[], int right_size) {
-// 	int i = 0, j = 0, k = 0;
-// 	while (i < left_size && j < right_size) {
-// 		if (left1[i] >= right1[j]) {
-// 			arr1[k] = left1[i];
-// 			arr2[k] = left2[i];
-// 			i++;
-// 		}
-// 		else {
-// 			arr1[k] = right1[j];
-// 			arr2[k] = right2[j];
-// 			j++;
-// 		}
-// 		k++;
-// 	}
-	
-// 	while (i < left_size) {
-// 		arr1[k] = left1[i];
-// 		arr2[k] = left2[i];
-// 		i++;
-// 		k++;
-// 	}
-	
-// 	while (j < right_size) {
-// 		arr1[k] = right1[j];
-// 		arr2[k] = right2[j];
-// 		j++;
-// 		k++;
-// 	}
-// }
+unsigned long get_max() {
+    unsigned long max = solution_array[0];
+    for (int i = 1; i < 256; i++) {
+        if (max < solution_array[i]) max = solution_array[i];
+    }
+    return max;
+}
 
-// void mergesort(int arr1[], int arr2[], int size) {
-// 	if (size < 2)
-// 		return;
-	
-// 	int mid = size / 2;
-// 	int *left1 = (int*) malloc(mid * sizeof(int));
-// 	int *left2 = (int*) malloc(mid * sizeof(int));
-// 	int *right1 = (int*) malloc((size - mid) * sizeof(int));
-// 	int *right2 = (int*) malloc((size - mid) * sizeof(int));
-	
-// 	for (int i = 0; i < mid; i++) {
-// 		left1[i] = arr1[i];
-// 		left2[i] = arr2[i];
-// 	}
-	
-// 	for (int i = mid; i < size; i++) {
-// 		right1[i - mid] = arr1[i];
-// 		right2[i - mid] = arr2[i];
-// 	}
-	
-// 	mergesort(left1, left2, mid);
-// 	mergesort(right1, right2, size - mid);
-// 	merge(arr1, arr2, left1, left2, mid, right1, right2, size - mid);
-	
-// 	free(left1);
-// 	free(left2);
-// 	free(right1);
-// 	free(right2);
-// }
+void count_sort(int pos_dig) {
+    unsigned long output[256], output_aux[256], count[10] = { 0 };
+
+    for (int i = 0; i < 256; i++) output_aux[i] = solution_aux[i];
+
+    for (int i = 0; i < 256; i++) count[(solution_array[i] / pos_dig) % 10]++;
+
+    for (int i = 1; i < 10; i++) count[i] += count[i - 1];
+
+    for (int i = 255; i >=0; i--) {
+        output[count[(solution_array[i] / pos_dig) % 10] - 1] = solution_array[i];
+        output_aux[count[(solution_array[i] / pos_dig) % 10] - 1] = solution_aux[i];
+        count[(solution_array[i] / pos_dig) % 10]--;
+    }
+
+    for (int i = 0; i < 256; i++) {
+        solution_array[i] = output[i];
+        solution_aux[i] = output_aux[i];
+    }
+
+}
+
+void radix_sort() {
+    unsigned long max = get_max();
+
+    for (int pos_dig = 1; max / pos_dig; pos_dig *= 10) count_sort(pos_dig);
+}
 
 void *reading_file(void* input_num) {
     int reader_num = *((int*) input_num);
@@ -91,18 +66,15 @@ void *reading_file(void* input_num) {
     long end;
     if (reader_num != readers_num -1) end = (filelen / readers_num) * (reader_num + 1);
     else end = filelen;
-    // printf("Hilo(%d), leyendo desde %ld - %ld\n", reader_num, start, end);
     FILE *fileptr;
     fileptr = fopen(filepath, "rb");
     while(!feof(fileptr) && reading_pos < end) {
         fseek(fileptr, reading_pos, SEEK_SET);
         unsigned char read_byte;
         fread(&read_byte, 1, 1, fileptr);
-        // pthread_cond_wait(&available_condition[read_byte], &solution_mutex[read_byte]);
         pthread_mutex_lock(&solution_mutex[read_byte]);
         solution_array[read_byte]++;
         pthread_mutex_unlock(&solution_mutex[read_byte]);
-        // pthread_cond_broadcast(&available_condition[read_byte]);
         reading_pos++;
     }
     fclose(fileptr);
@@ -113,7 +85,6 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < 256; i++) {
         solution_aux[i] = i;
         pthread_mutex_init(&solution_mutex[i], NULL);
-        pthread_cond_init(&available_condition[i], NULL);
     }
     
     if (argc > 1) readers_num = atoi(argv[1]);
@@ -163,8 +134,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // mergesort(solution_array, solution_aux, 256);
-    printf("La cantidad de caracteres es: %ld\n", filelen);
+    radix_sort();
+    // printf("La cantidad de caracteres es: %ld\n", filelen);
     long total = 0;
     for (int i = 0; i < 256; i++) {
         if (solution_array[i] != 0) {
@@ -172,10 +143,9 @@ int main(int argc, char *argv[]) {
             total += solution_array[i];
         }
     }
-    printf("La cantidad que leyo es: %ld\n", total);
+    // printf("La cantidad que leyo es: %ld\n", total);
     for (int i = 0; i < 256; i++) {
         pthread_mutex_destroy(&solution_mutex[i]);
-        pthread_cond_destroy(&available_condition[i]);
     }
     return 0;
 }
