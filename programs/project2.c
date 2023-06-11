@@ -65,7 +65,7 @@ void count_sort(int pos_dig) {
 void radix_sort() {
     unsigned long max = get_max();
 
-    for (int pos_dig = 1; max / pos_dig; pos_dig *= 10) count_sort(pos_dig);
+    for (int pos_dig = 1; max / pos_dig > 0; pos_dig *= 10) count_sort(pos_dig);
 }
 
 
@@ -214,17 +214,43 @@ struct Node* create_tree() {
 }
 
 void print_tree(struct Node* root, char* tab) {
+    char * filename_with_ext = malloc(strlen(filename)+1+4);
+    strcpy(filename_with_ext, filename);
+    strcat(filename_with_ext, ".edy");
+
+    FILE * out = fopen(filename_with_ext, "a+");
     if (root->byte != -1) {
-        printf("%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
+        // printf("%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
+        fputs(tab, out);
+        fputs("|_>", out);
+        fputc(root->byte, out);
+        fputc(':', out);
+        // fputs(root->amount_of_byte, out);
+        fputs("\n", out);
     } else {
         char* new_tab = malloc(strlen(tab)+1+1);
         strcpy(new_tab, tab);
         strcat(new_tab, "\t");
-        if (tab != "") printf("%s|_>%lu\n",tab, root->amount_of_byte);
-        else printf("%s\t%lu\n",tab, root->amount_of_byte);
+        if (tab != "") {
+            // printf("%s|_>%lu\n",tab, root->amount_of_byte);
+            fputs(tab, out);
+            fputs("|_>", out);
+            // fputs(root->amount_of_byte, out);
+            fputs("\n", out);
+        } else {
+            // printf("%s\t%lu\n",tab, root->amount_of_byte);
+            fputs(tab, out);
+            fputs("|_>", out);
+            fputc(root->byte, out);
+            fputc(':', out);
+            // fputs(root->amount_of_byte, out);
+            fputs("\n", out);
+        }
+        fclose(out);
         print_tree(root->left, new_tab);
         print_tree(root->right, new_tab);
         free(new_tab);
+        free(filename_with_ext);
     }
 }
 
