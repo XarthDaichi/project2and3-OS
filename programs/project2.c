@@ -28,6 +28,9 @@ static long filelen;
 // new files info
 static char *filename;
 
+// path table for decompression
+static int path_table[256][2];
+
 // methods for sorting array (radixsort)
 unsigned long get_max() {
     unsigned long max = solution_array[0];
@@ -123,76 +126,91 @@ int amount_of_zeros() {
 
 struct Node* create_tree() {
     int amount_of_bytes_zero = amount_of_zeros();
+    // printf("Zeroes: %d\n", amount_of_bytes_zero);
+    if (amount_of_bytes_zero < 254) {
+        struct Node* non_byte_nodes[255] = { NULL };
+        int nb_total = 0, last_nb_add = 0;
 
-    struct Node* non_byte_nodes[255] = { NULL };
-    int nb_total = 0, last_nb_add = 0;
+        non_byte_nodes[nb_total] = create_node_not_byte(0);
 
-    non_byte_nodes[nb_total] = create_node_not_byte(0);
+        non_byte_nodes[nb_total]->left = create_node(solution_aux[amount_of_bytes_zero + 1], solution_array[amount_of_bytes_zero + 1]);
+        // printf("Made it here 1\n");
+        non_byte_nodes[nb_total]->right = create_node(solution_aux[amount_of_bytes_zero + 2], solution_array[amount_of_bytes_zero + 2]);
+        // printf("Made it here 2\n");
+        non_byte_nodes[nb_total]->amount_of_byte = solution_array[amount_of_bytes_zero + 1] + solution_array[amount_of_bytes_zero + 2];
+        // printf("Made it here 3\n");
 
-    non_byte_nodes[nb_total]->left = create_node(solution_aux[amount_of_bytes_zero + 1], solution_array[amount_of_bytes_zero + 1]);
-    non_byte_nodes[nb_total]->right = create_node(solution_aux[amount_of_bytes_zero + 2], solution_array[amount_of_bytes_zero + 2]);
-    non_byte_nodes[nb_total]->amount_of_byte = solution_array[amount_of_bytes_zero + 1] + solution_array[amount_of_bytes_zero + 2];
+        int all_loaded = 0;
+        int i = amount_of_bytes_zero + 3;
 
-    int all_loaded = 0;
-    int i = amount_of_bytes_zero + 3;
+        // printf("%d\n", i);
 
-    while (i < 256 || !all_loaded) {
-        if (i < 255) {
-            if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i]) {
-                if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->amount_of_byte < solution_array[i]) {
-                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
-                    non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
-                    non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
-                    last_nb_add += 2;
+        while (i < 256 || !all_loaded) {
+            if (i < 255) {
+                if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i]) {
+                    if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->amount_of_byte < solution_array[i]) {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
+                        non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
+                        non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
+                        last_nb_add += 2;
+                    } else {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+                        non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
+                        non_byte_nodes[nb_total]->right = create_node(solution_aux[i], solution_array[i]);
+                        last_nb_add++;
+                        i++;
+                    }
                 } else {
+                    if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i + 1]) {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+                        non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
+                        non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
+                        last_nb_add++;
+                        i++;
+                    } else {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(solution_array[i] + solution_array[i + 1]);
+                        non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
+                        non_byte_nodes[nb_total]->right = create_node(solution_aux[i + 1], solution_array[i + 1]);
+                        i += 2;
+                    }
+                }
+            }
+            else if (i == 255) {
+                if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i]) {
                     non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
                     non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                     non_byte_nodes[nb_total]->right = create_node(solution_aux[i], solution_array[i]);
                     last_nb_add++;
                     i++;
-                }
-            } else {
-                if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i + 1]) {
+                } else {
                     non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
                     non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
                     non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
                     last_nb_add++;
                     i++;
-                } else {
-                    non_byte_nodes[++nb_total] = create_node_not_byte(solution_array[i] + solution_array[i + 1]);
-                    non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
-                    non_byte_nodes[nb_total]->right = create_node(solution_aux[i + 1], solution_array[i + 1]);
-                    i += 2;
                 }
             }
-        }
-        else if (i == 255) {
-            if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i]) {
-                non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+            if (last_nb_add == nb_total) {
+                break;
+            }
+            else if (nb_total > 0) {
+                // printf("Made it here 4");
+                non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
                 non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
-                non_byte_nodes[nb_total]->right = create_node(solution_aux[i], solution_array[i]);
-                last_nb_add++;
-                i++;
-            } else {
-                non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
-                non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
-                non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
-                last_nb_add++;
-                i++;
+                non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
+                last_nb_add += 2;
+            }
+            if (last_nb_add == nb_total) {
+                break;
             }
         }
-        else {
-            non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
-            non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
-            non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
-            last_nb_add += 2;
-        }
-        if (last_nb_add == nb_total) {
-            break;
-        }
-    }
 
-    return non_byte_nodes[nb_total];
+        return non_byte_nodes[nb_total];
+    } else if (amount_of_bytes_zero == 254){
+        return create_node(solution_aux[amount_of_bytes_zero + 1], solution_array[amount_of_bytes_zero + 1]);
+    } else {
+        return NULL;
+    }
 }
 
 void print_tree(struct Node* root, char* tab) {
@@ -207,6 +225,16 @@ void print_tree(struct Node* root, char* tab) {
         print_tree(root->left, new_tab);
         print_tree(root->right, new_tab);
         free(new_tab);
+    }
+}
+
+void fill_path(struct Node* root, int TA, int mask) {
+    if (root->byte != -1) {
+        path_table[root->byte][0] = TA;
+        path_table[root->byte][1] = mask;
+    } else {
+        fill_path(root->left, TA+1, mask);
+        fill_path(root->right, TA+1, mask + 1 << TA);
     }
 }
 
@@ -272,6 +300,7 @@ int main(int argc, char *argv[]) {
             total += solution_array[i];
         }
     }
+
     printf("La cantidad que leyo es: %lu\n", total);
     for (int i = 0; i < 256; i++) {
         pthread_mutex_destroy(&solution_mutex[i]);
@@ -280,9 +309,12 @@ int main(int argc, char *argv[]) {
     if (filelen != 0) {
         struct Node* tree_root = create_tree();
         print_tree(tree_root, "");
+        fill_path(tree_root, 0, 0);
     }
 
-
+    for (int i = 0; i < 256; i++) {
+        printf("Byte: %c | TA:%d | Mask: %d\n", i, path_table[i][0], path_table[i][1]);
+    }
 
     return 0;
 }
