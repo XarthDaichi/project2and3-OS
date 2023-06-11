@@ -27,6 +27,9 @@ static long filelen;
 
 // new files info
 static char *filename;
+static char *filename_with_ext_data;
+static char *filename_with_ext_table;
+static char *filename_with_ext_comp;
 
 // path table for decompression
 static int path_table[256][2];
@@ -126,7 +129,6 @@ int amount_of_zeros() {
 
 struct Node* create_tree() {
     int amount_of_bytes_zero = amount_of_zeros();
-    // printf("Zeroes: %d\n", amount_of_bytes_zero);
     if (amount_of_bytes_zero < 254) {
         struct Node* non_byte_nodes[255] = { NULL };
         int nb_total = 0, last_nb_add = 0;
@@ -134,16 +136,12 @@ struct Node* create_tree() {
         non_byte_nodes[nb_total] = create_node_not_byte(0);
 
         non_byte_nodes[nb_total]->left = create_node(solution_aux[amount_of_bytes_zero + 1], solution_array[amount_of_bytes_zero + 1]);
-        // printf("Made it here 1\n");
         non_byte_nodes[nb_total]->right = create_node(solution_aux[amount_of_bytes_zero + 2], solution_array[amount_of_bytes_zero + 2]);
-        // printf("Made it here 2\n");
         non_byte_nodes[nb_total]->amount_of_byte = solution_array[amount_of_bytes_zero + 1] + solution_array[amount_of_bytes_zero + 2];
-        // printf("Made it here 3\n");
 
         int all_loaded = 0;
         int i = amount_of_bytes_zero + 3;
 
-        // printf("%d\n", i);
 
         while (i < 256 || !all_loaded) {
             if (i < 255) {
@@ -190,11 +188,7 @@ struct Node* create_tree() {
                     i++;
                 }
             }
-            if (last_nb_add == nb_total) {
-                break;
-            }
             else if (nb_total > 0) {
-                // printf("Made it here 4");
                 non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
                 non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                 non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
@@ -213,45 +207,58 @@ struct Node* create_tree() {
     }
 }
 
-void print_tree(struct Node* root, char* tab) {
-    char * filename_with_ext = malloc(strlen(filename)+1+4);
-    strcpy(filename_with_ext, filename);
-    strcat(filename_with_ext, ".edy");
 
-    FILE * out = fopen(filename_with_ext, "a+");
+// methods for tree data file creation
+
+int is_leaf(struct Node* root) {
+    if (root->left == NULL && root->right == NULL) return 1;
+    return 0;
+}
+
+void print_tree(struct Node* root, char* tab) {
+    FILE * out = fopen(filename_with_ext_data, "a");
     if (root->byte != -1) {
         // printf("%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
-        fputs(tab, out);
-        fputs("|_>", out);
-        fputc(root->byte, out);
-        fputc(':', out);
-        // fputs(root->amount_of_byte, out);
-        fputs("\n", out);
+        fprintf(out, "%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
+        fclose(out);
     } else {
         char* new_tab = malloc(strlen(tab)+1+1);
         strcpy(new_tab, tab);
         strcat(new_tab, "\t");
         if (tab != "") {
-            // printf("%s|_>%lu\n",tab, root->amount_of_byte);
-            fputs(tab, out);
-            fputs("|_>", out);
-            // fputs(root->amount_of_byte, out);
-            fputs("\n", out);
+            // printf( "%s|_>%lu\n",tab, root->amount_of_byte);
+            fprintf(out, "%s|_>%lu\n",tab, root->amount_of_byte);
         } else {
             // printf("%s\t%lu\n",tab, root->amount_of_byte);
-            fputs(tab, out);
-            fputs("|_>", out);
-            fputc(root->byte, out);
-            fputc(':', out);
-            // fputs(root->amount_of_byte, out);
-            fputs("\n", out);
+            fprintf(out, "%s\t%lu\n",tab, root->amount_of_byte);
         }
         fclose(out);
         print_tree(root->left, new_tab);
         print_tree(root->right, new_tab);
         free(new_tab);
-        free(filename_with_ext);
     }
+}
+
+int get_tree_heigh(struct Node* root) {
+
+}
+
+void write_tree_data(struct Node* root) {
+    filename_with_ext_data = malloc(strlen(filename)+1+4);
+    strcpy(filename_with_ext_data, filename);
+    strcat(filename_with_ext_data, ".edy");
+
+    FILE * out;
+
+    out = fopen(filename_with_ext_data, "w");
+        fprintf(out, "Altura: %d\n", get_tree_height(root));
+    fclose(out);
+
+    out = fopen(filename_with_ext_data, "a");
+    fprintf(out, "Arbol: \n");
+    fclose(out);
+
+    print_tree(tree_root, "");
 }
 
 void fill_path(struct Node* root, int TA, int mask) {
@@ -332,15 +339,18 @@ int main(int argc, char *argv[]) {
         pthread_mutex_destroy(&solution_mutex[i]);
     }
 
-    if (filelen != 0) {
-        struct Node* tree_root = create_tree();
-        print_tree(tree_root, "");
-        fill_path(tree_root, 0, 0);
-    }
+    struct Node* tree_root = create_tree();
 
-    for (int i = 0; i < 256; i++) {
-        printf("Byte: %c | TA:%d | Mask: %d\n", i, path_table[i][0], path_table[i][1]);
-    }
 
+
+    fill_path(tree_root, 0, 0);
+
+    if (is_leaf(tree_root)) {
+        printf("Byte: %c | TA:%d | Mask: %d\n", tree_root->byte, path_table[tree_root->byte][0], path_table[tree_root->byte][1]);
+    } else {
+        for (int i = 0; i < 256; i++) {
+            if (path_table[i][0] != 0) printf("Byte: %c | TA:%d | Mask: %d\n", i, path_table[i][0], path_table[i][1]);
+        }
+    }
     return 0;
 }
