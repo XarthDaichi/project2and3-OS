@@ -1,6 +1,6 @@
 Altura: 12
 Anchura: 16
-Total de frecuencia: 7351
+Total de frecuencia: 7350
 Frecuencia de   : 1320
 Frecuencia de i : 316
 Frecuencia de n : 329
@@ -15,7 +15,7 @@ Frecuencia de l : 207
 Frecuencia de d : 231
 Frecuencia de s : 270
 Frecuencia de 
- : 309
+ : 308
 Frecuencia de , : 78
 Frecuencia de T : 89
 Frecuencia de k : 95
@@ -58,7 +58,7 @@ Frecuencia de X : 1
 Frecuencia de j : 2
 Total de nodos: 107
 Arbol: 
-	7351
+	7350
 	|_>3407
 		|_>1951
 			|_>631
@@ -94,7 +94,7 @@ Arbol:
 						|_>r:97
 						|_>y:97
 				|_>a:405
-	|_>3944
+	|_>3943
 		|_>1801
 			|_>874
 				|_>412
@@ -140,7 +140,7 @@ Arbol:
 								|_>N:30
 						|_>!:116
 				|_>e:465
-		|_>2143
+		|_>2142
 			|_>1005
 				|_>o:470
 				|_>535
@@ -154,9 +154,9 @@ Arbol:
 									|_>Y:17
 							|_>I:70
 					|_>s:270
-			|_>1138
+			|_>1137
 				|_>t:538
-				|_>600
+				|_>599
 					|_>291
 						|_>140
 							|_>c:70
@@ -165,4 +165,4 @@ Arbol:
 							|_>f:74
 							|_>g:77
 					|_>
-:309
+:308

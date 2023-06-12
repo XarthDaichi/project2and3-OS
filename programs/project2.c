@@ -32,7 +32,7 @@ static char *filename_with_ext_table;
 static char *filename_with_ext_comp;
 
 // path table for decompression
-static int path_table[256][2];
+static unsigned int path_table[256][2];
 
 // methods for sorting array (radixsort)
 unsigned long get_max() {
@@ -355,7 +355,7 @@ void compression() {
 
     unsigned long reading_pos = 0;
     unsigned char read_byte, inputing_byte = 0;
-    int bits_left = 8;
+    unsigned int bits_left = 8;
 
 
     FILE *fileptr = fopen(filepath, "rb");
@@ -364,20 +364,22 @@ void compression() {
         fseek(fileptr, reading_pos, SEEK_SET);
         fread(&read_byte, 1, 1, fileptr);
         
-        if (bits_left < path_table[read_byte][0]) {
-            inputing_byte += path_table[read_byte][1] >> (path_table[read_byte][0] - bits_left);
-            fprintf(out,"%c", inputing_byte);
+        unsigned int bits_for_use = path_table[read_byte][0];
+        while(bits_left < bits_for_use) {
+            bits_for_use -= bits_left;
+            inputing_byte += (path_table[read_byte][1] >> bits_for_use)&255;
+            fprintf(out, "%c", inputing_byte);
             inputing_byte = 0;
-            inputing_byte += (path_table[read_byte][1] << (8 - (path_table[read_byte][0] - bits_left)))&255;
-            bits_left = 8 - (path_table[read_byte][0] - bits_left);
-        } else {
-            inputing_byte += path_table[read_byte][1] << (bits_left - path_table[read_byte][0]);
-            bits_left -= path_table[read_byte][0];
-            if (bits_left == 0) {
-                fprintf(out, "%c", inputing_byte);
-                inputing_byte = 0;
-                bits_left = 8;
-            }
+            bits_left = 8;
+        }
+        if (bits_for_use > 0) {
+            bits_left -= bits_for_use;
+            inputing_byte += (path_table[read_byte][1] << bits_left)&255;
+        }
+        if (bits_left == 0) {
+            fprintf(out, "%c", inputing_byte);
+            inputing_byte = 0;
+            bits_left = 8;
         }
         reading_pos++;
     }
