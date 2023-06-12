@@ -100,7 +100,7 @@ void *reading_file(void* input_num) {
 struct Node {
     int byte;
     unsigned long amount_of_byte;
-    int path;
+    // int path;
     struct Node* left;
     struct Node* right;
 };
@@ -217,8 +217,7 @@ int is_leaf(struct Node* root) {
 
 void print_tree(struct Node* root, char* tab) {
     FILE * out = fopen(filename_with_ext_data, "a");
-    if (root->byte != -1) {
-        // printf("%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
+    if (is_leaf(root)) {
         fprintf(out, "%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
         fclose(out);
     } else {
@@ -226,10 +225,8 @@ void print_tree(struct Node* root, char* tab) {
         strcpy(new_tab, tab);
         strcat(new_tab, "\t");
         if (tab != "") {
-            // printf( "%s|_>%lu\n",tab, root->amount_of_byte);
             fprintf(out, "%s|_>%lu\n",tab, root->amount_of_byte);
         } else {
-            // printf("%s\t%lu\n",tab, root->amount_of_byte);
             fprintf(out, "%s\t%lu\n",tab, root->amount_of_byte);
         }
         fclose(out);
@@ -239,8 +236,49 @@ void print_tree(struct Node* root, char* tab) {
     }
 }
 
-int get_tree_heigh(struct Node* root) {
+int get_tree_height(struct Node* root, int height) {
+    if (is_leaf(root)) return height;
+    int height_left = get_tree_height(root->left, height + 1);
+    int height_right = get_tree_height(root->right, height + 1);
+    if (height_left < height_right) return height_right;
+    return height_left;
+}
 
+void get_tree_widths(struct Node* root, int height, int widths[]) {
+    if (root != NULL) {
+        widths[height]++;
+        get_tree_widths(root->left, height + 1, widths);
+        get_tree_widths(root->right, height + 1, widths);
+    }
+}
+
+int get_max1(int arr[], int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (max < arr[i]) max = arr[i];
+    }
+    return max;
+}
+
+void get_tree_frequencies(struct Node* root, int node_total) {
+    struct Node* nodes[node_total];
+
+    int counter = 0, last = 0;
+    nodes[counter++] = root;
+    FILE * out = fopen(filename_with_ext_data, "a");
+    while (last < node_total) {
+        struct Node* temp = nodes[last];
+        if (temp->left != NULL) nodes[counter++] = temp->left;
+        if (temp->right != NULL) nodes[counter++] = temp->right;
+        if (is_leaf(temp)) fprintf(out, "Frecuencia de %c : %lu\n", temp->byte, temp->amount_of_byte);
+        last++;
+    }
+    fclose(out);
+}
+
+int get_node_amount(struct Node* root) {
+    if (is_leaf(root)) return 1;
+    return get_node_amount(root->left) + get_node_amount(root->right) + 1;
 }
 
 void write_tree_data(struct Node* root) {
@@ -248,27 +286,103 @@ void write_tree_data(struct Node* root) {
     strcpy(filename_with_ext_data, filename);
     strcat(filename_with_ext_data, ".edy");
 
+    int height = get_tree_height(root, 0);
+
+    int * widths = (int*)calloc(sizeof(int), height);
+
+    get_tree_widths(root, 0, widths);
+
+    int max_width = get_max1(widths, height);
+
+    int node_total = get_node_amount(root);
+
     FILE * out;
 
     out = fopen(filename_with_ext_data, "w");
-        fprintf(out, "Altura: %d\n", get_tree_height(root));
+    fprintf(out, "Altura: %d\n", height); 
+    fprintf(out, "Anchura: %d\n", max_width);
+    fprintf(out, "Total de frecuencia: %lu\n", root->amount_of_byte);
+    fclose(out);
+
+    get_tree_frequencies(root, node_total);
+
+    out = fopen(filename_with_ext_data, "a");
+    fprintf(out, "Total de nodos: %d\n", node_total);
     fclose(out);
 
     out = fopen(filename_with_ext_data, "a");
     fprintf(out, "Arbol: \n");
     fclose(out);
 
-    print_tree(tree_root, "");
+    print_tree(root, "");
 }
 
-void fill_path(struct Node* root, int TA, int mask) {
-    if (root->byte != -1) {
-        path_table[root->byte][0] = TA;
+
+// For table creation
+void fill_path(struct Node* root, int level, int mask) {
+    if (is_leaf(root)) {
+        path_table[root->byte][0] = level;
         path_table[root->byte][1] = mask;
     } else {
-        fill_path(root->left, TA+1, mask);
-        fill_path(root->right, TA+1, mask + 1 << TA);
+        fill_path(root->left, level+1, mask << 1);
+        fill_path(root->right, level+1, (mask << 1) + 1);
     }
+}
+
+// For table file creation
+void write_table_file(struct Node* root) {
+    filename_with_ext_table = malloc(strlen(filename)+1+6);
+    strcpy(filename_with_ext_table, filename);
+    strcat(filename_with_ext_table, ".table");
+
+    FILE * out = fopen(filename_with_ext_table, "w");
+    
+    if (is_leaf(root)) {
+        fprintf(out, "Byte: %c | Level:%d | Mask: %d\n", root->byte, path_table[root->byte][0], path_table[root->byte][1]);
+    } else {
+        for (int i = 0; i < 256; i++) {
+            if (path_table[solution_aux[i]][0] != 0) fprintf(out, "Byte: %c | Level:%d | Mask: %d\n", solution_aux[i], path_table[solution_aux[i]][0], path_table[solution_aux[i]][1]);
+        }
+    }
+    fclose(out);
+}
+
+// Compression
+void compression() {
+    filename_with_ext_comp = malloc(strlen(filename)+1+4);
+    strcpy(filename_with_ext_comp, filename);
+    strcat(filename_with_ext_comp, ".una");
+
+    unsigned long reading_pos = 0;
+    char read_byte, inputing_byte = 0;
+    int bits_left = 8;
+
+
+    FILE *fileptr = fopen(filepath, "rb");
+    FILE *out = fopen(filename_with_ext_comp, "w");
+    while(!feof(fileptr)) {
+        fseek(fileptr, reading_pos, SEEK_SET);
+        fread(&read_byte, 1, 1, fileptr);
+        
+        if (bits_left < path_table[read_byte][0]) {
+            inputing_byte += path_table[read_byte][1] >> (path_table[read_byte][0] - bits_left);
+            fprintf(out,"%c", inputing_byte);
+            inputing_byte = 0;
+            inputing_byte += path_table[read_byte][1] << (8 - (path_table[read_byte][0] - bits_left));
+            bits_left = 8 - (path_table[read_byte][0] - bits_left);
+        } else {
+            inputing_byte += path_table[read_byte][1] << (bits_left - path_table[read_byte][0]);
+            bits_left -= path_table[read_byte][0];
+            if (bits_left == 0) {
+                fprintf(out, "%c", inputing_byte);
+                inputing_byte = 0;
+                bits_left = 8;
+            }
+        }
+        reading_pos++;
+    }
+    fclose(out);
+    fclose(fileptr);
 }
 
 int main(int argc, char *argv[]) {
@@ -325,32 +439,19 @@ int main(int argc, char *argv[]) {
     }
 
     radix_sort();
-    printf("La cantidad de caracteres es: %lu\n", filelen);
-    long total = 0;
-    for (int i = 0; i < 256; i++) {
-        if (solution_array[i] != 0) {
-            printf("%c aparece %d veces\n", solution_aux[i], solution_array[i]);
-            total += solution_array[i];
-        }
-    }
-
-    printf("La cantidad que leyo es: %lu\n", total);
     for (int i = 0; i < 256; i++) {
         pthread_mutex_destroy(&solution_mutex[i]);
     }
 
     struct Node* tree_root = create_tree();
 
-
+    write_tree_data(tree_root);
 
     fill_path(tree_root, 0, 0);
 
-    if (is_leaf(tree_root)) {
-        printf("Byte: %c | TA:%d | Mask: %d\n", tree_root->byte, path_table[tree_root->byte][0], path_table[tree_root->byte][1]);
-    } else {
-        for (int i = 0; i < 256; i++) {
-            if (path_table[i][0] != 0) printf("Byte: %c | TA:%d | Mask: %d\n", i, path_table[i][0], path_table[i][1]);
-        }
-    }
+    write_table_file(tree_root);
+
+    compression();
+    
     return 0;
 }

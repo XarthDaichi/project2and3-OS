@@ -1,3 +1,25 @@
+Altura: 6
+Anchura: 10
+Total de frecuencia: 92
+Frecuencia de   : 20
+Frecuencia de e : 14
+Frecuencia de v : 4
+Frecuencia de m : 5
+Frecuencia de a : 6
+Frecuencia de d : 6
+Frecuencia de o : 6
+Frecuencia de i : 7
+Frecuencia de n : 2
+Frecuencia de l : 3
+Frecuencia de r : 3
+Frecuencia de s : 3
+Frecuencia de q : 4
+Frecuencia de u : 4
+Frecuencia de b : 1
+Frecuencia de c : 1
+Frecuencia de y : 1
+Frecuencia de , : 2
+Total de nodos: 35
 Arbol: 
 	92
 	|_>39
@@ -34,5 +56,3 @@ Arbol:
 				|_>8
 					|_>q:4
 					|_>u:4
-
-
