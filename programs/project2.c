@@ -354,7 +354,7 @@ void compression() {
     strcat(filename_with_ext_comp, ".una");
 
     unsigned long reading_pos = 0;
-    char read_byte, inputing_byte = 0;
+    unsigned char read_byte, inputing_byte = 0;
     int bits_left = 8;
 
 
@@ -368,7 +368,7 @@ void compression() {
             inputing_byte += path_table[read_byte][1] >> (path_table[read_byte][0] - bits_left);
             fprintf(out,"%c", inputing_byte);
             inputing_byte = 0;
-            inputing_byte += path_table[read_byte][1] << (8 - (path_table[read_byte][0] - bits_left));
+            inputing_byte += (path_table[read_byte][1] << (8 - (path_table[read_byte][0] - bits_left)))&255;
             bits_left = 8 - (path_table[read_byte][0] - bits_left);
         } else {
             inputing_byte += path_table[read_byte][1] << (bits_left - path_table[read_byte][0]);
@@ -383,6 +383,41 @@ void compression() {
     }
     fclose(out);
     fclose(fileptr);
+}
+
+void decompression(struct Node* root) {
+    char * filename_decomp = malloc(strlen(filename)+1+4);
+    strcpy(filename_decomp, filename);
+    strcat(filename_decomp, ".txt");
+
+    unsigned long reading_pos = 0;
+    unsigned char read_byte = 0;
+    int to_left, to_right, temp_bit = 0;
+
+    struct Node* temp = root;
+
+    FILE * in = fopen(filename_with_ext_comp, "rb");
+    FILE * out = fopen(filename_decomp, "w");
+
+    while(!feof(in)) {
+        fseek(in, reading_pos, SEEK_SET);
+        fread(&read_byte, 1, 1, in);
+        printf("OG:%c\n", read_byte);
+        for (to_left = 0; to_left < 8; to_left++) {
+            if (is_leaf(temp)) { 
+                fprintf(out,"%c", temp->byte);
+                printf("N:%c\n", temp->byte);
+                temp = root;
+            }
+            temp_bit = (read_byte << to_left)&255;
+            temp_bit = temp_bit >> 7;
+            if (temp_bit == 0) temp = temp->left;
+            else if (temp_bit == 1) temp = temp->right;
+        }
+        reading_pos++;
+    }
+    fclose(out);
+    fclose(in);
 }
 
 int main(int argc, char *argv[]) {
@@ -453,5 +488,7 @@ int main(int argc, char *argv[]) {
 
     compression();
     
+    decompression(tree_root);
+
     return 0;
 }
