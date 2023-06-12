@@ -392,27 +392,34 @@ void decompression(struct Node* root) {
 
     unsigned long reading_pos = 0;
     unsigned char read_byte = 0;
-    int to_left, to_right, temp_bit = 0;
+    int to_left, wrote_counter = 0, temp_bit = 0;
 
     struct Node* temp = root;
 
     FILE * in = fopen(filename_with_ext_comp, "rb");
     FILE * out = fopen(filename_decomp, "w");
 
-    while(!feof(in)) {
+    while(!feof(in) && wrote_counter < root->amount_of_byte) {
         fseek(in, reading_pos, SEEK_SET);
         fread(&read_byte, 1, 1, in);
-        printf("OG:%c\n", read_byte);
+        // printf("OG:%c\n", read_byte);
         for (to_left = 0; to_left < 8; to_left++) {
             if (is_leaf(temp)) { 
                 fprintf(out,"%c", temp->byte);
-                printf("N:%c\n", temp->byte);
+                wrote_counter++;
+                // printf("N:%c\n", temp->byte);
                 temp = root;
             }
             temp_bit = (read_byte << to_left)&255;
             temp_bit = temp_bit >> 7;
             if (temp_bit == 0) temp = temp->left;
             else if (temp_bit == 1) temp = temp->right;
+            if (is_leaf(temp)) { 
+                fprintf(out,"%c", temp->byte);
+                wrote_counter++;
+                // printf("N:%c\n", temp->byte);
+                temp = root;
+            }
         }
         reading_pos++;
     }
