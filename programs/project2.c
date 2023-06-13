@@ -99,8 +99,7 @@ void *reading_file(void* input_num) {
 // things for tree creation
 struct Node {
     int byte;
-    unsigned long amount_of_byte;
-    // int path;
+    unsigned long frequency;
     struct Node* left;
     struct Node* right;
 };
@@ -108,7 +107,7 @@ struct Node {
 struct Node* create_node(int inserting_byte, unsigned long amount) {
     struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
     new_node->byte = inserting_byte;
-    new_node->amount_of_byte = amount;
+    new_node->frequency = amount;
     new_node->left = NULL;
     new_node->right = NULL;
     return new_node;
@@ -137,7 +136,7 @@ struct Node* create_tree() {
 
         non_byte_nodes[nb_total]->left = create_node(solution_aux[amount_of_bytes_zero + 1], solution_array[amount_of_bytes_zero + 1]);
         non_byte_nodes[nb_total]->right = create_node(solution_aux[amount_of_bytes_zero + 2], solution_array[amount_of_bytes_zero + 2]);
-        non_byte_nodes[nb_total]->amount_of_byte = solution_array[amount_of_bytes_zero + 1] + solution_array[amount_of_bytes_zero + 2];
+        non_byte_nodes[nb_total]->frequency = solution_array[amount_of_bytes_zero + 1] + solution_array[amount_of_bytes_zero + 2];
 
         int all_loaded = 0;
         int i = amount_of_bytes_zero + 3;
@@ -145,22 +144,22 @@ struct Node* create_tree() {
 
         while (i < 256 || !all_loaded) {
             if (i < 255) {
-                if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i]) {
-                    if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->amount_of_byte < solution_array[i]) {
-                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
+                if (non_byte_nodes[last_nb_add]->frequency < solution_array[i]) {
+                    if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->frequency < solution_array[i]) {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->frequency + non_byte_nodes[last_nb_add]->frequency);
                         non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                         non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
                         last_nb_add += 2;
                     } else {
-                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + solution_array[i]);
                         non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                         non_byte_nodes[nb_total]->right = create_node(solution_aux[i], solution_array[i]);
                         last_nb_add++;
                         i++;
                     }
                 } else {
-                    if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i + 1]) {
-                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+                    if (non_byte_nodes[last_nb_add]->frequency < solution_array[i + 1]) {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + solution_array[i]);
                         non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
                         non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
                         last_nb_add++;
@@ -174,14 +173,14 @@ struct Node* create_tree() {
                 }
             }
             else if (i == 255) {
-                if (non_byte_nodes[last_nb_add]->amount_of_byte < solution_array[i]) {
-                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+                if (non_byte_nodes[last_nb_add]->frequency < solution_array[i]) {
+                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + solution_array[i]);
                     non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                     non_byte_nodes[nb_total]->right = create_node(solution_aux[i], solution_array[i]);
                     last_nb_add++;
                     i++;
                 } else {
-                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->amount_of_byte + solution_array[i]);
+                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + solution_array[i]);
                     non_byte_nodes[nb_total]->left = create_node(solution_aux[i], solution_array[i]);
                     non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
                     last_nb_add++;
@@ -189,12 +188,12 @@ struct Node* create_tree() {
                 }
             }
             else if (nb_total > 0) {
-                non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->amount_of_byte + non_byte_nodes[last_nb_add]->amount_of_byte);
+                non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->frequency + non_byte_nodes[last_nb_add]->frequency);
                 non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                 non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
                 last_nb_add += 2;
             }
-            if (last_nb_add == nb_total) {
+            if (last_nb_add == nb_total && i == 256) {
                 break;
             }
         }
@@ -218,16 +217,16 @@ int is_leaf(struct Node* root) {
 void print_tree(struct Node* root, char* tab) {
     FILE * out = fopen(filename_with_ext_data, "a");
     if (is_leaf(root)) {
-        fprintf(out, "%s|_>%c:%lu\n",tab, root->byte, root->amount_of_byte);
+        fprintf(out, "%s|_>%c:%lu\n",tab, root->byte, root->frequency);
         fclose(out);
     } else {
         char* new_tab = malloc(strlen(tab)+1+1);
         strcpy(new_tab, tab);
         strcat(new_tab, "\t");
         if (tab != "") {
-            fprintf(out, "%s|_>%lu\n",tab, root->amount_of_byte);
+            fprintf(out, "%s|_>%lu\n",tab, root->frequency);
         } else {
-            fprintf(out, "%s\t%lu\n",tab, root->amount_of_byte);
+            fprintf(out, "%s\t%lu\n",tab, root->frequency);
         }
         fclose(out);
         print_tree(root->left, new_tab);
@@ -270,7 +269,7 @@ void get_tree_frequencies(struct Node* root, int node_total) {
         struct Node* temp = nodes[last];
         if (temp->left != NULL) nodes[counter++] = temp->left;
         if (temp->right != NULL) nodes[counter++] = temp->right;
-        if (is_leaf(temp)) fprintf(out, "Frecuencia de %c : %lu\n", temp->byte, temp->amount_of_byte);
+        if (is_leaf(temp)) fprintf(out, "Frecuencia de %c : %lu\n", temp->byte, temp->frequency);
         last++;
     }
     fclose(out);
@@ -301,7 +300,7 @@ void write_tree_data(struct Node* root) {
     out = fopen(filename_with_ext_data, "w");
     fprintf(out, "Altura: %d\n", height); 
     fprintf(out, "Anchura: %d\n", max_width);
-    fprintf(out, "Total de frecuencia: %lu\n", root->amount_of_byte);
+    fprintf(out, "Total de frecuencia: %lu\n", root->frequency);
     fclose(out);
 
     get_tree_frequencies(root, node_total);
@@ -387,48 +386,6 @@ void compression() {
     fclose(fileptr);
 }
 
-void decompression(struct Node* root) {
-    char * filename_decomp = malloc(strlen(filename)+1+4);
-    strcpy(filename_decomp, filename);
-    strcat(filename_decomp, ".txt");
-
-    unsigned long reading_pos = 0;
-    unsigned char read_byte = 0;
-    int to_left, wrote_counter = 0, temp_bit = 0;
-
-    struct Node* temp = root;
-
-    FILE * in = fopen(filename_with_ext_comp, "rb");
-    FILE * out = fopen(filename_decomp, "w");
-
-    while(!feof(in) && wrote_counter < root->amount_of_byte) {
-        fseek(in, reading_pos, SEEK_SET);
-        fread(&read_byte, 1, 1, in);
-        // printf("OG:%c\n", read_byte);
-        for (to_left = 0; to_left < 8; to_left++) {
-            if (is_leaf(temp)) { 
-                fprintf(out,"%c", temp->byte);
-                wrote_counter++;
-                // printf("N:%c\n", temp->byte);
-                temp = root;
-            }
-            temp_bit = (read_byte << to_left)&255;
-            temp_bit = temp_bit >> 7;
-            if (temp_bit == 0) temp = temp->left;
-            else if (temp_bit == 1) temp = temp->right;
-            if (is_leaf(temp)) { 
-                fprintf(out,"%c", temp->byte);
-                wrote_counter++;
-                // printf("N:%c\n", temp->byte);
-                temp = root;
-            }
-        }
-        reading_pos++;
-    }
-    fclose(out);
-    fclose(in);
-}
-
 int main(int argc, char *argv[]) {
     for (int i = 0; i < 256; i++) {
         solution_aux[i] = i;
@@ -440,9 +397,6 @@ int main(int argc, char *argv[]) {
         printf("Falta el numero de lectores");
         return -1;
     }
-    int index[readers_num];
-
-    for (int i = 0; i < readers_num; i++) index[i] = i;
 
     if (argc > 2) filepath = (argv[2]);
     else {
@@ -456,8 +410,6 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    pthread_t readers[readers_num];
-
     FILE *fileptr;
     fileptr = fopen(filepath, "rb");
     if (fileptr == NULL) {
@@ -468,6 +420,12 @@ int main(int argc, char *argv[]) {
     filelen = ftell(fileptr);
     rewind(fileptr);
     fclose(fileptr);
+
+    pthread_t readers[readers_num];
+    
+    int index[readers_num];
+    for (int i = 0; i < readers_num; i++) index[i] = i;
+
     for (int i = 0; i < readers_num; i++) {
         if (pthread_create(&readers[i], NULL, reading_file, &index[i]) != 0) {
             printf("No se pudo crear el hilo de productores");
@@ -483,9 +441,8 @@ int main(int argc, char *argv[]) {
     }
 
     radix_sort();
-    for (int i = 0; i < 256; i++) {
-        pthread_mutex_destroy(&solution_mutex[i]);
-    }
+
+    for (int i = 0; i < 256; i++) pthread_mutex_destroy(&solution_mutex[i]);
 
     struct Node* tree_root = create_tree();
 
@@ -496,8 +453,5 @@ int main(int argc, char *argv[]) {
     write_table_file(tree_root);
 
     compression();
-    
-    decompression(tree_root);
-
     return 0;
 }
