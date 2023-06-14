@@ -22,6 +22,7 @@ static char * ext_decomp;
 static unsigned long filelen;
 
 static int bytes_counter;
+static int non_byte_nodes_amount;
 static unsigned long **bytes;
 
 static unsigned int path_table[256][2];
@@ -53,8 +54,8 @@ int is_leaf(struct Node* root) {
 
 struct Node* create_tree() {
     if (bytes_counter > 1) {
-        struct Node* non_byte_nodes[bytes_counter];
-        for (int i = 0; i < bytes_counter; i++) non_byte_nodes[i] = NULL;
+        struct Node* non_byte_nodes[non_byte_nodes_amount];
+        for (int i = 0; i < non_byte_nodes_amount; i++) non_byte_nodes[i] = NULL;
         int nb_total = 0, last_nb_add = 0;
 
         non_byte_nodes[nb_total] = create_node_not_byte(0);
@@ -65,12 +66,10 @@ struct Node* create_tree() {
 
         int all_loaded = 0;
         int i = 2;
-
-
         while (i < bytes_counter || !all_loaded) {
             if (i < bytes_counter - 1) {
                 if (non_byte_nodes[last_nb_add]->frequency < bytes[i][1]) {
-                    if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->frequency < bytes[i][1]) {
+                    if (nb_total > 0 && non_byte_nodes[last_nb_add + 1]->frequency < bytes[i][1]) {
                         non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->frequency + non_byte_nodes[last_nb_add]->frequency);
                         non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                         non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
@@ -119,10 +118,11 @@ struct Node* create_tree() {
                 last_nb_add += 2;
             }
             if (last_nb_add == nb_total && i == bytes_counter) {
+                all_loaded = 1;
                 break;
             }
         }
-
+        
         return non_byte_nodes[nb_total];
     } else if (bytes_counter == 1){
         return create_node(bytes[0][0], bytes[0][0]);
@@ -135,6 +135,7 @@ void *get_tree_data() {
     size_t size = 32;
     char * starting = (char *) malloc (32);
     char * number = (char *) malloc (32);
+    char * byte = (char *) malloc (32);
 
     FILE * data = fopen(filename_with_ext_data, "rb");
     getline(&starting, &size, data);
@@ -149,16 +150,18 @@ void *get_tree_data() {
     getdelim(&starting, &size, ':', data);
     getline(&number, &size, data);
     filelen = strtoul(number, NULL, 10);
-    printf("%lu\n", filelen);
     for (int i = 0; i < bytes_counter; i++) {
+        getdelim(&starting, &size,' ', data);
+        getdelim(&starting, &size,' ', data);
+        getdelim(&byte, &size,' ', data);
         getdelim(&starting, &size,':', data);
-        if (starting[0] != 'F') {
-            break;
-        }
         getline(&number, &size, data);
-        bytes[i][0] = starting[14];
+        bytes[i][0] = atoi(byte);
         bytes[i][1] = strtoul(number, NULL, 10);
     }
+    getdelim(&starting, &size,':', data);
+    getline(&number, &size, data);
+    non_byte_nodes_amount = atoi(number) - bytes_counter;
     fclose(data);
 }
 
@@ -201,27 +204,6 @@ void decompression(struct Node* root) {
     fclose(in);
 }
 
-void print_tree(struct Node* root, char* tab) {
-    // FILE * out = fopen(filename_with_ext_data, "a");
-    if (is_leaf(root)) {
-        printf("%s|_>%c:%lu\n",tab, root->byte, root->frequency);
-        // fclose(out);
-    } else {
-        char* new_tab = malloc(strlen(tab)+1+1);
-        strcpy(new_tab, tab);
-        strcat(new_tab, "\t");
-        if (tab != "") {
-            printf("%s|_>%lu\n",tab, root->frequency);
-        } else {
-            printf("%s\t%lu\n",tab, root->frequency);
-        }
-        // fclose(out);
-        print_tree(root->left, new_tab);
-        print_tree(root->right, new_tab);
-        free(new_tab);
-    }
-}
-
 int main(int argc, char *argv[]) {
     if (argc > 1) filename = (argv[1]);
     else {
@@ -254,10 +236,7 @@ int main(int argc, char *argv[]) {
     strcat(filename_with_ext_table, ".table");
 
     get_tree_data();
-    
     struct Node* root = create_tree();
-
-    print_tree(root, "");
 
     decompression(root);
 

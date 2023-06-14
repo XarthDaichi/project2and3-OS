@@ -145,7 +145,7 @@ struct Node* create_tree() {
         while (i < 256 || !all_loaded) {
             if (i < 255) {
                 if (non_byte_nodes[last_nb_add]->frequency < solution_array[i]) {
-                    if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->frequency < solution_array[i]) {
+                    if (nb_total > 0 && non_byte_nodes[last_nb_add + 1]->frequency < solution_array[i]) {
                         non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->frequency + non_byte_nodes[last_nb_add]->frequency);
                         non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
                         non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
@@ -217,7 +217,7 @@ int is_leaf(struct Node* root) {
 void print_tree(struct Node* root, char* tab) {
     FILE * out = fopen(filename_with_ext_data, "a");
     if (is_leaf(root)) {
-        fprintf(out, "%s|_>%c:%lu\n",tab, root->byte, root->frequency);
+        fprintf(out, "%s|_>%d:%lu\n",tab, root->byte, root->frequency);
         fclose(out);
     } else {
         char* new_tab = malloc(strlen(tab)+1+1);
@@ -262,7 +262,7 @@ int get_max1(int arr[], int n) {
 void get_tree_frequencies() {
     FILE * out = fopen(filename_with_ext_data, "a");
     for (int i = amount_of_zeros() + 1; i < 256; i++) {
-        fprintf(out, "Frecuencia de %c : %lu\n", solution_aux[i], solution_array[i]);
+        fprintf(out, "Frecuencia de %d : %lu\n", solution_aux[i], solution_array[i]);
     }
     fclose(out);
 }
@@ -330,10 +330,10 @@ void write_table_file(struct Node* root) {
     FILE * out = fopen(filename_with_ext_table, "w");
     
     if (is_leaf(root)) {
-        fprintf(out, "Byte: %c | Level:%d | Mask: %d\n", root->byte, path_table[root->byte][0], path_table[root->byte][1]);
+        fprintf(out, "Byte: %d | Level:%d | Mask: %d\n", root->byte, path_table[root->byte][0], path_table[root->byte][1]);
     } else {
         for (int i = 0; i < 256; i++) {
-            if (path_table[solution_aux[i]][0] != 0) fprintf(out, "Byte: %c | Level:%d | Mask: %d\n", solution_aux[i], path_table[solution_aux[i]][0], path_table[solution_aux[i]][1]);
+            if (path_table[solution_aux[i]][0] != 0) fprintf(out, "Byte: %d | Level:%d | Mask: %d\n", solution_aux[i], path_table[solution_aux[i]][0], path_table[solution_aux[i]][1]);
         }
     }
     fclose(out);
@@ -432,6 +432,10 @@ int main(int argc, char *argv[]) {
             return -1;
         }
     }
+
+    // for (int i = 0; i < 256; i++) {
+    //     if (solution_array[i] > 0) printf("%d : %lu\n", solution_aux[i], solution_array[i]);
+    // }
 
     radix_sort();
 
