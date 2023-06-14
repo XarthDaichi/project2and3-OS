@@ -19,17 +19,147 @@ static char * filename_with_ext_comp;
 static char * filename_decomp;
 static char * ext_decomp;
 
+static unsigned long filelen;
+
+static int bytes_counter;
+static unsigned long **bytes;
+
 static unsigned int path_table[256][2];
 
 struct Node {
     int byte;
     unsigned long frequency;
+    struct Node* left;
+    struct Node* right;
+};
 
+struct Node* create_node(int inserting_byte, unsigned long amount) {
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    new_node->byte = inserting_byte;
+    new_node->frequency = amount;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    return new_node;
 }
 
+struct Node* create_node_not_byte(int amount) {
+    return create_node(-1, amount);
+}
+
+int is_leaf(struct Node* root) {
+    if (root->left == NULL && root->right == NULL) return 1;
+    return 0;
+}
+
+struct Node* create_tree() {
+    if (bytes_counter > 1) {
+        struct Node* non_byte_nodes[bytes_counter];
+        for (int i = 0; i < bytes_counter; i++) non_byte_nodes[i] = NULL;
+        int nb_total = 0, last_nb_add = 0;
+
+        non_byte_nodes[nb_total] = create_node_not_byte(0);
+
+        non_byte_nodes[nb_total]->left = create_node(bytes[0][0], bytes[0][1]);
+        non_byte_nodes[nb_total]->right = create_node(bytes[1][0], bytes[1][1]);
+        non_byte_nodes[nb_total]->frequency = bytes[0][1] + bytes[1][1];
+
+        int all_loaded = 0;
+        int i = 2;
+
+
+        while (i < bytes_counter || !all_loaded) {
+            if (i < bytes_counter - 1) {
+                if (non_byte_nodes[last_nb_add]->frequency < bytes[i][1]) {
+                    if (last_nb_add > 0 && non_byte_nodes[last_nb_add + 1]->frequency < bytes[i][1]) {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->frequency + non_byte_nodes[last_nb_add]->frequency);
+                        non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
+                        non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
+                        last_nb_add += 2;
+                    } else {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + bytes[i][1]);
+                        non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
+                        non_byte_nodes[nb_total]->right = create_node(bytes[i][0], bytes[i][1]);
+                        last_nb_add++;
+                        i++;
+                    }
+                } else {
+                    if (non_byte_nodes[last_nb_add]->frequency < bytes[i + 1][1]) {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + bytes[i][1]);
+                        non_byte_nodes[nb_total]->left = create_node(bytes[i][0], bytes[i][1]);
+                        non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
+                        last_nb_add++;
+                        i++;
+                    } else {
+                        non_byte_nodes[++nb_total] = create_node_not_byte(bytes[i][1] + bytes[i + 1][1]);
+                        non_byte_nodes[nb_total]->left = create_node(bytes[i][0], bytes[i][1]);
+                        non_byte_nodes[nb_total]->right = create_node(bytes[i + 1][0], bytes[i + 1][1]);
+                        i += 2;
+                    }
+                }
+            }
+            else if (i == bytes_counter - 1) {
+                if (non_byte_nodes[last_nb_add]->frequency < bytes[i][1]) {
+                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + bytes[i][1]);
+                    non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
+                    non_byte_nodes[nb_total]->right = create_node(bytes[i][0], bytes[i][1]);
+                    last_nb_add++;
+                    i++;
+                } else {
+                    non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add]->frequency + bytes[i][1]);
+                    non_byte_nodes[nb_total]->left = create_node(bytes[i][0], bytes[i][1]);
+                    non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add];
+                    last_nb_add++;
+                    i++;
+                }
+            }
+            else if (nb_total > 0) {
+                non_byte_nodes[++nb_total] = create_node_not_byte(non_byte_nodes[last_nb_add + 1]->frequency + non_byte_nodes[last_nb_add]->frequency);
+                non_byte_nodes[nb_total]->left = non_byte_nodes[last_nb_add];
+                non_byte_nodes[nb_total]->right = non_byte_nodes[last_nb_add + 1];
+                last_nb_add += 2;
+            }
+            if (last_nb_add == nb_total && i == bytes_counter) {
+                break;
+            }
+        }
+
+        return non_byte_nodes[nb_total];
+    } else if (bytes_counter == 1){
+        return create_node(bytes[0][0], bytes[0][0]);
+    } else {
+        return NULL;
+    }
+}
 
 void *get_tree_data() {
+    size_t size = 32;
+    char * starting = (char *) malloc (32);
+    char * number = (char *) malloc (32);
 
+    FILE * data = fopen(filename_with_ext_data, "rb");
+    getline(&starting, &size, data);
+    getline(&starting, &size, data);
+    getdelim(&starting, &size,':', data);
+    getline(&number, &size, data);
+    bytes_counter = atoi(number);
+    bytes = (unsigned long **) malloc(bytes_counter * sizeof(unsigned long *));
+    for (int i = 0; i < bytes_counter; i++) {
+        bytes[i] = (unsigned long *)malloc(2 * sizeof(unsigned long));
+    }
+    getdelim(&starting, &size, ':', data);
+    getline(&number, &size, data);
+    filelen = strtoul(number, NULL, 10);
+    printf("%lu\n", filelen);
+    for (int i = 0; i < bytes_counter; i++) {
+        getdelim(&starting, &size,':', data);
+        if (starting[0] != 'F') {
+            break;
+        }
+        getline(&number, &size, data);
+        bytes[i][0] = starting[14];
+        bytes[i][1] = strtoul(number, NULL, 10);
+    }
+    fclose(data);
 }
 
 void decompression(struct Node* root) {
@@ -71,6 +201,27 @@ void decompression(struct Node* root) {
     fclose(in);
 }
 
+void print_tree(struct Node* root, char* tab) {
+    // FILE * out = fopen(filename_with_ext_data, "a");
+    if (is_leaf(root)) {
+        printf("%s|_>%c:%lu\n",tab, root->byte, root->frequency);
+        // fclose(out);
+    } else {
+        char* new_tab = malloc(strlen(tab)+1+1);
+        strcpy(new_tab, tab);
+        strcat(new_tab, "\t");
+        if (tab != "") {
+            printf("%s|_>%lu\n",tab, root->frequency);
+        } else {
+            printf("%s\t%lu\n",tab, root->frequency);
+        }
+        // fclose(out);
+        print_tree(root->left, new_tab);
+        print_tree(root->right, new_tab);
+        free(new_tab);
+    }
+}
+
 int main(int argc, char *argv[]) {
     if (argc > 1) filename = (argv[1]);
     else {
@@ -90,7 +241,25 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    filename_with_ext_data = malloc(strlen(filename)+1+4);
+    strcpy(filename_with_ext_data, filename);
+    strcat(filename_with_ext_data, ".edy");
+
+    filename_with_ext_comp = malloc(strlen(filename)+1+4);
+    strcpy(filename_with_ext_comp, filename);
+    strcat(filename_with_ext_comp, ".una");
+
+    filename_with_ext_table = malloc(strlen(filename)+1+6);
+    strcpy(filename_with_ext_table, filename);
+    strcat(filename_with_ext_table, ".table");
+
+    get_tree_data();
     
-    
+    struct Node* root = create_tree();
+
+    print_tree(root, "");
+
+    decompression(root);
+
     return 0;
 }

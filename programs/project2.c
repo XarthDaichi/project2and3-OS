@@ -259,18 +259,10 @@ int get_max1(int arr[], int n) {
     return max;
 }
 
-void get_tree_frequencies(struct Node* root, int node_total) {
-    struct Node* nodes[node_total];
-
-    int counter = 0, last = 0;
-    nodes[counter++] = root;
+void get_tree_frequencies() {
     FILE * out = fopen(filename_with_ext_data, "a");
-    while (last < node_total) {
-        struct Node* temp = nodes[last];
-        if (temp->left != NULL) nodes[counter++] = temp->left;
-        if (temp->right != NULL) nodes[counter++] = temp->right;
-        if (is_leaf(temp)) fprintf(out, "Frecuencia de %c : %lu\n", temp->byte, temp->frequency);
-        last++;
+    for (int i = amount_of_zeros() + 1; i < 256; i++) {
+        fprintf(out, "Frecuencia de %c : %lu\n", solution_aux[i], solution_array[i]);
     }
     fclose(out);
 }
@@ -300,10 +292,11 @@ void write_tree_data(struct Node* root) {
     out = fopen(filename_with_ext_data, "w");
     fprintf(out, "Altura: %d\n", height); 
     fprintf(out, "Anchura: %d\n", max_width);
+    fprintf(out, "Cantidad de bytes: %d\n", 255 - amount_of_zeros());
     fprintf(out, "Total de frecuencia: %lu\n", root->frequency);
     fclose(out);
 
-    get_tree_frequencies(root, node_total);
+    get_tree_frequencies();
 
     out = fopen(filename_with_ext_data, "a");
     fprintf(out, "Total de nodos: %d\n", node_total);

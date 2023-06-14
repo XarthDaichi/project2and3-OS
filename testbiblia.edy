@@ -1,0 +1,304 @@
+Altura: 22
+Anchura: 20
+Cantidad de bytes: 99
+Total de frecuencia: 4112856
+Frecuencia de * : 1
+Frecuencia de \ : 1
+Frecuencia de _ : 1
+Frecuencia de = : 3
+Frecuencia de Ñ : 3
+Frecuencia de # : 4
+Frecuencia de W : 4
+Frecuencia de © : 4
+Frecuencia de " : 6
+Frecuencia de w : 12
+Frecuencia de — : 13
+Frecuencia de / : 16
+Frecuencia de Á : 21
+Frecuencia de k : 23
+Frecuencia de X : 41
+Frecuencia de Ú : 42
+Frecuencia de K : 49
+Frecuencia de Ó : 49
+Frecuencia de É : 84
+Frecuencia de ü : 123
+Frecuencia de Í : 193
+Frecuencia de ! : 497
+Frecuencia de ¡ : 497
+Frecuencia de Z : 559
+Frecuencia de U : 587
+Frecuencia de F : 663
+Frecuencia de ) : 723
+Frecuencia de ( : 725
+Frecuencia de V : 1152
+Frecuencia de Q : 1155
+Frecuencia de G : 1436
+Frecuencia de x : 1441
+Frecuencia de R : 1689
+Frecuencia de O : 1944
+Frecuencia de B : 2155
+Frecuencia de T : 2470
+Frecuencia de 0 : 2935
+Frecuencia de 9 : 3073
+Frecuencia de ? : 3140
+Frecuencia de ¿ : 3154
+Frecuencia de N : 3209
+Frecuencia de 8 : 3229
+Frecuencia de 7 : 3379
+Frecuencia de H : 3468
+Frecuencia de L : 3558
+Frecuencia de 6 : 3688
+Frecuencia de C : 3787
+Frecuencia de I : 3885
+Frecuencia de 5 : 4108
+Frecuencia de ú : 4660
+Frecuencia de 4 : 5029
+Frecuencia de ñ : 5310
+Frecuencia de M : 5360
+Frecuencia de P : 6035
+Frecuencia de - : 6607
+Frecuencia de 3 : 6992
+Frecuencia de A : 7639
+Frecuencia de S : 7985
+Frecuencia de D : 8006
+Frecuencia de : : 8263
+Frecuencia de E : 9352
+Frecuencia de z : 10960
+Frecuencia de Y : 11085
+Frecuencia de 2 : 11141
+Frecuencia de J : 13835
+Frecuencia de ; : 15160
+Frecuencia de 1 : 15709
+Frecuencia de f : 15980
+Frecuencia de ó : 19848
+Frecuencia de é : 20203
+Frecuencia de j : 21013
+Frecuencia de í : 22376
+Frecuencia de g : 25458
+Frecuencia de á : 28475
+Frecuencia de . : 29276
+Frecuencia de q : 32417
+Frecuencia de 	 : 35188
+Frecuencia de 
+ : 35188
+Frecuencia de  : 35188
+Frecuencia de v : 38086
+Frecuencia de y : 44769
+Frecuencia de b : 45937
+Frecuencia de h : 46825
+Frecuencia de p : 59179
+Frecuencia de , : 63280
+Frecuencia de m : 74678
+Frecuencia de c : 98010
+Frecuencia de t : 118799
+Frecuencia de u : 119853
+Frecuencia de d : 156101
+Frecuencia de i : 158224
+Frecuencia de l : 162426
+Frecuencia de n : 177182
+Frecuencia de r : 196717
+Frecuencia de s : 249475
+Frecuencia de o : 288734
+Frecuencia de a : 333367
+Frecuencia de e : 383931
+Frecuencia de   : 754546
+Total de nodos: 197
+Arbol: 
+	4112856
+	|_>1879383
+		|_>736891
+			|_>352960
+				|_>175778
+					|_>85072
+						|_>41216
+							|_>é:20203
+							|_>j:21013
+						|_>43856
+							|_>21630
+								|_>10670
+									|_>ñ:5310
+									|_>M:5360
+								|_>z:10960
+							|_>22226
+								|_>Y:11085
+								|_>2:11141
+					|_>90706
+						|_>y:44769
+						|_>b:45937
+				|_>n:177182
+			|_>e:383931
+		|_>1142492
+			|_>387946
+				|_>191229
+					|_>93219
+						|_>46394
+							|_>í:22376
+							|_>24018
+								|_>11689
+									|_>5681
+										|_>2792
+											|_>1356
+												|_>F:663
+												|_>693
+													|_>290
+														|_>ü:123
+														|_>167
+															|_>83
+																|_>X:41
+																|_>Ú:42
+															|_>É:84
+													|_>403
+														|_>Í:193
+														|_>210
+															|_>96
+																|_>47
+																	|_>k:23
+																	|_>24
+																		|_>w:12
+																		|_>12
+																			|_>":6
+																			|_>6
+																				|_>=:3
+																				|_>Ñ:3
+																|_>K:49
+															|_>114
+																|_>Ó:49
+																|_>65
+																	|_>28
+																		|_>—:13
+																		|_>15
+																			|_>7
+																				|_>3
+																					|_>_:1
+																					|_>2
+																						|_>*:1
+																						|_>\:1
+																				|_>#:4
+																			|_>8
+																				|_>W:4
+																				|_>©:4
+																	|_>37
+																		|_>/:16
+																		|_>Á:21
+											|_>G:1436
+										|_>2889
+											|_>x:1441
+											|_>1448
+												|_>):723
+												|_>(:725
+									|_>6008
+										|_>0:2935
+										|_>9:3073
+								|_>12329
+									|_>P:6035
+									|_>6294
+										|_>?:3140
+										|_>¿:3154
+						|_>h:46825
+					|_>c:98010
+				|_>r:196717
+			|_> :754546
+	|_>2233473
+		|_>982851
+			|_>467209
+				|_>228117
+					|_>109318
+						|_>52338
+							|_>g:25458
+							|_>26880
+								|_>13045
+									|_>6438
+										|_>N:3209
+										|_>8:3229
+									|_>-:6607
+								|_>J:13835
+						|_>56980
+							|_>á:28475
+							|_>28505
+								|_>13839
+									|_>6847
+										|_>7:3379
+										|_>H:3468
+									|_>3:6992
+								|_>14666
+									|_>7191
+										|_>L:3558
+										|_>3633
+											|_>R:1689
+											|_>O:1944
+									|_>7475
+										|_>6:3688
+										|_>C:3787
+					|_>t:118799
+				|_>239092
+					|_>119239
+						|_>p:59179
+						|_>60060
+							|_>.:29276
+							|_>30784
+								|_>;:15160
+								|_>15624
+									|_>A:7639
+									|_>S:7985
+					|_>u:119853
+			|_>515642
+				|_>s:249475
+				|_>266167
+					|_>127386
+						|_>,:63280
+						|_>64106
+							|_>31689
+								|_>1:15709
+								|_>f:15980
+							|_>q:32417
+					|_>138781
+						|_>68405
+							|_>33217
+								|_>15999
+									|_>7993
+										|_>I:3885
+										|_>5:4108
+									|_>D:8006
+								|_>17218
+									|_>::8263
+									|_>8955
+										|_>4295
+											|_>2140
+												|_>994
+													|_>!:497
+													|_>¡:497
+												|_>1146
+													|_>Z:559
+													|_>U:587
+											|_>B:2155
+										|_>ú:4660
+							|_>	:35188
+						|_>70376
+							|_>
+:35188
+							|_>:35188
+		|_>1250622
+			|_>596605
+				|_>o:288734
+				|_>307871
+					|_>151770
+						|_>m:74678
+						|_>77092
+							|_>v:38086
+							|_>39006
+								|_>19158
+									|_>E:9352
+									|_>9806
+										|_>4777
+											|_>2307
+												|_>V:1152
+												|_>Q:1155
+											|_>T:2470
+										|_>4:5029
+								|_>ó:19848
+					|_>d:156101
+			|_>654017
+				|_>320650
+					|_>i:158224
+					|_>l:162426
+				|_>a:333367
