@@ -3,6 +3,6 @@
 \contentsline {section}{\numberline {II}Introducción}{2}{}%
 \contentsline {section}{\numberline {III}Marco teórico}{2}{}%
 \contentsline {section}{\numberline {IV}Descripción de la solución}{3}{}%
-\contentsline {section}{\numberline {V}Resultados de pruebas}{4}{}%
-\contentsline {section}{\numberline {VI}Conclusiones}{5}{}%
-\contentsline {section}{\numberline {VII}Aprendizajes}{5}{}%
+\contentsline {section}{\numberline {V}Resultados de pruebas}{5}{}%
+\contentsline {section}{\numberline {VI}Conclusiones}{9}{}%
+\contentsline {section}{\numberline {VII}Aprendizajes}{9}{}%

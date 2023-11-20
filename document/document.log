@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.13)  12 JUN 2023 03:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.13)  14 JUN 2023 23:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -543,7 +543,10 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [article,natbib].
 
-No file document.aux.
+(./document.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+)
 \openout1 = `document.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
@@ -560,6 +563,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
+
 -- Lines per column: 50 (exact).
 LaTeX Info: Redefining \. on input line 24.
 LaTeX Info: Redefining \% on input line 24.
@@ -619,10 +623,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--44
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
-/enc/dvips/base/8r.enc}]
-No file document.toc.
+/enc/dvips/base/8r.enc}] (./document.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write4
 \openout4 = `document.toc'.
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -684,6 +691,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 73--74
  []
 
 
+LaTeX Warning: Citation `rao_strings' on page 1 undefined on input line 75.
+
+
+LaTeX Warning: Citation `cppreferencecom_2022_strtoul' on page 1 undefined on i
+nput line 75.
+
+
+LaTeX Warning: Citation `riptutorial_c' on page 1 undefined on input line 75.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 75--76
 
  []
@@ -699,38 +716,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [1]
 
 LaTeX Warning: Citation `encyclopdiabritannica_2022_c' on page 2 undefined on i
-nput line 83.
+nput line 85.
 
 
-LaTeX Warning: Citation `munoz_after' on page 2 undefined on input line 83.
+LaTeX Warning: Citation `munoz_after' on page 2 undefined on input line 85.
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 83--84
+Underfull \hbox (badness 1769) in paragraph at lines 85--86
 \OT1/ptm/m/n/12 sis-te-mas ope-ra-ti-vos pa-ra mi-ni-compu-tado-ras, las
  []
 
 
-Underfull \hbox (badness 1902) in paragraph at lines 83--84
+Underfull \hbox (badness 1902) in paragraph at lines 85--86
 \OT1/ptm/m/n/12 po-ten-tes que una su-per-compu-tado-ra, pe-ro m[]as
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 83--84
-
- []
-
-
-LaTeX Warning: Citation `mritchie_1993_the' on page 2 undefined on input line 8
-5.
-
-
-Underfull \hbox (badness 2318) in paragraph at lines 85--86
-[]\OT1/ptm/m/n/12 Desde 1977 has-ta 1979 ocu-rrie-ron dis-tin-tos
- []
-
-
-Underfull \hbox (badness 3068) in paragraph at lines 85--86
-\OT1/ptm/m/n/12 se pu-blic[]o un li-bro que sir-ve co-mo ma-nual
  []
 
 
@@ -739,8 +737,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 85--86
  []
 
 
-LaTeX Warning: Citation `ippolito_2020_linux' on page 2 undefined on input line
- 87.
+LaTeX Warning: Citation `mritchie_1993_the' on page 2 undefined on input line 8
+7.
+
+
+Underfull \hbox (badness 2318) in paragraph at lines 87--88
+[]\OT1/ptm/m/n/12 Desde 1977 has-ta 1979 ocu-rrie-ron dis-tin-tos
+ []
+
+
+Underfull \hbox (badness 3068) in paragraph at lines 87--88
+\OT1/ptm/m/n/12 se pu-blic[]o un li-bro que sir-ve co-mo ma-nual
+ []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 87--88
@@ -748,12 +756,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 87--88
  []
 
 
-LaTeX Warning: Citation `lpezfernndez_2010_algoritmo' on page 2 undefined on in
-put line 89.
-
-
-LaTeX Warning: Citation `techiedelight_2017_algoritmo' on page 2 undefined on i
-nput line 89.
+LaTeX Warning: Citation `ippolito_2020_linux' on page 2 undefined on input line
+ 89.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 89--90
@@ -761,12 +765,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 89--90
  []
 
 
-LaTeX Warning: Citation `avram_2014_jetbrains' on page 2 undefined on input lin
-e 91.
+LaTeX Warning: Citation `lpezfernndez_2010_algoritmo' on page 2 undefined on in
+put line 91.
 
 
-LaTeX Warning: Citation `jetbrains_intelligent' on page 2 undefined on input li
-ne 91.
+LaTeX Warning: Citation `techiedelight_2017_algoritmo' on page 2 undefined on i
+nput line 91.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 91--92
@@ -785,42 +789,48 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 
+LaTeX Warning: Citation `avram_2014_jetbrains' on page 3 undefined on input lin
+e 93.
+
+
+LaTeX Warning: Citation `jetbrains_intelligent' on page 3 undefined on input li
+ne 93.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--94
+
+ []
+
+
 LaTeX Warning: Citation `universityinformationtechnologyservices_2021_about' on
- page 3 undefined on input line 93.
+ page 3 undefined on input line 95.
 
 
 LaTeX Warning: Citation `idahostateuniversity_1997_what' on page 3 undefined on
- input line 93.
+ input line 95.
 
 
-LaTeX Warning: Citation `cppdev_2010_c' on page 3 undefined on input line 96.
+LaTeX Warning: Citation `cppdev_2010_c' on page 3 undefined on input line 98.
 
 
-LaTeX Warning: Citation `manrow_2011_c' on page 3 undefined on input line 96.
+LaTeX Warning: Citation `manrow_2011_c' on page 3 undefined on input line 98.
 
 
-Underfull \hbox (badness 1642) in paragraph at lines 96--97
-\OT1/ptm/m/n/12 arre-glos, uno lla-ma-do so-lu-tion[]array que tie-ne
+Underfull \hbox (badness 3029) in paragraph at lines 98--99
+\OT1/ptm/m/n/12 la se-gun-da, \OT1/ptm/m/it/12 fi-le-path\OT1/ptm/m/n/12 , se u
+ti-li-za co-mo pun-te-ro
  []
 
 
-Underfull \hbox (badness 1609) in paragraph at lines 96--97
-\OT1/ptm/m/n/12 el arre-glo prin-ci-pal, es-te se or-de-na al mis-mo
+Underfull \hbox (badness 2990) in paragraph at lines 98--99
+\OT1/ptm/m/n/12 de c[]odi-gos y \OT1/ptm/m/it/12 fi-le-na-me[]with[]ext[]comp \
+OT1/ptm/m/n/12 pa-ra el
  []
 
 
-Underfull \hbox (badness 3354) in paragraph at lines 96--97
-\OT1/ptm/m/n/12 va-ria-bles, la pri-me-ra lla-ma-da readers[]num se
+Underfull \hbox (badness 1789) in paragraph at lines 98--99
+\OT1/ptm/m/n/12 nom-bre del ar-chi-vo com-pri-mi-do in-clu-yen-do la
  []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
-
- []
-
-
-LaTeX Warning: Citation `geeksforgeeks_2013_radix' on page 3 undefined on input
- line 98.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 98--99
@@ -828,20 +838,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--99
  []
 
 
-LaTeX Warning: Citation `chanilastnam_2015_c' on page 3 undefined on input line
- 100.
-
-
-LaTeX Warning: Citation `cppreferencecom_2021_fread' on page 3 undefined on inp
-ut line 100.
-
-
-LaTeX Warning: Citation `kerrisk_2010_fseek3' on page 3 undefined on input line
- 100.
-
-
-LaTeX Warning: Citation `kerrisk_2010_pthread_exit3' on page 3 undefined on inp
-ut line 100.
+LaTeX Warning: Citation `geeksforgeeks_2013_radix' on page 3 undefined on input
+ line 100.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 100--101
@@ -849,12 +847,43 @@ Underfull \hbox (badness 10000) in paragraph at lines 100--101
  []
 
 
-Underfull \hbox (badness 2460) in paragraph at lines 102--103
-\OT1/ptm/m/n/12 el m[]eto-do amount[]of[]zeros() que de-vuel-ve la
- []
+LaTeX Warning: Citation `chanilastnam_2015_c' on page 3 undefined on input line
+ 102.
+
+
+LaTeX Warning: Citation `cppreferencecom_2021_fread' on page 3 undefined on inp
+ut line 102.
+
+
+LaTeX Warning: Citation `kerrisk_2010_fseek3' on page 3 undefined on input line
+ 102.
+
+
+LaTeX Warning: Citation `kerrisk_2010_pthread_exit3' on page 3 undefined on inp
+ut line 102.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 102--103
+
+ []
+
+
+Underfull \hbox (badness 1478) in paragraph at lines 104--105
+\OT1/ptm/m/n/12 par de no-dos jun-tos. Des-pu[]es est[]a el m[]eto-do
+ []
+
+
+Underfull \hbox (badness 1629) in paragraph at lines 104--105
+\OT1/ptm/m/n/12 de Huff-man y to-man-do el array de so-lu-ci[]on,
+ []
+
+
+Underfull \hbox (badness 2735) in paragraph at lines 104--105
+\OT1/ptm/m/n/12 aqu[]^^P se ha-ce to-da la l[]ogi-ca de com-pa-ra-ci[]on
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
@@ -869,43 +898,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [3]
 
 LaTeX Warning: Citation `tutorialspointindiaprivatelimited_c' on page 4 undefin
-ed on input line 104.
+ed on input line 106.
 
 
 LaTeX Warning: Citation `sonofblip_2013_append' on page 4 undefined on input li
-ne 104.
+ne 106.
 
 
-LaTeX Warning: Citation `dtech_2012_how' on page 4 undefined on input line 104.
+LaTeX Warning: Citation `dtech_2012_how' on page 4 undefined on input line 106.
 
 
 
-Underfull \hbox (badness 3612) in paragraph at lines 104--105
-\OT1/ptm/m/n/12 de ar-chi-vos del []arbol. Pri-me-ro est[]a is[]leaf()
+Underfull \hbox (badness 3612) in paragraph at lines 106--107
+\OT1/ptm/m/n/12 de ar-chi-vos del []arbol. Pri-me-ro est[]a \OT1/ptm/m/it/12 is
+[]leaf()
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--105
-
- []
-
-
-LaTeX Warning: Citation `kerrisk_2010_pthread_join3' on page 4 undefined on inp
-ut line 106.
-
-
-Underfull \hbox (badness 2894) in paragraph at lines 106--107
-[]\OT1/ptm/m/n/12 Para ter-mi-nar, den-tro del main pri-me-ro se
- []
-
-
-Underfull \hbox (badness 3965) in paragraph at lines 106--107
-\OT1/ptm/m/n/12 ini-cia-li-zan to-das las po-si-cio-nes del array de
- []
-
-
-Underfull \hbox (badness 3471) in paragraph at lines 106--107
-\OT1/ptm/m/n/12 po-si-ci[]on, jun-to con los mu-tex pa-ra las 256
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/ptm/m/n/12 usan-do \OT1/ptm/m/it/12 get[]max1()\OT1/ptm/m/n/12 , \OT1/ptm/
+m/it/12 get[]tree[]frecuencies() \OT1/ptm/m/n/12 que
  []
 
 
@@ -914,48 +926,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--107
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
+LaTeX Warning: Citation `kerrisk_2010_pthread_join3' on page 4 undefined on inp
+ut line 110.
+
+
+Underfull \hbox (badness 2894) in paragraph at lines 110--111
+[]\OT1/ptm/m/n/12 Para ter-mi-nar, den-tro del main pri-me-ro se
+ []
+
+
+Underfull \hbox (badness 3965) in paragraph at lines 110--111
+\OT1/ptm/m/n/12 ini-cia-li-zan to-das las po-si-cio-nes del array de
+ []
+
+
+Underfull \hbox (badness 3471) in paragraph at lines 110--111
+\OT1/ptm/m/n/12 po-si-ci[]on, jun-to con los mu-tex pa-ra las 256
+ []
+
+
+Underfull \hbox (badness 2150) in paragraph at lines 110--111
+\OT1/ptm/m/n/12 as[]^^P co-mo una aper-tu-ra pre-li-mi-nar del ar-chi-vo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 
-Underfull \hbox (badness 2012) in paragraph at lines 111--112
-\OT1/ptm/m/n/12 pro-duc-to-res 1 con-su-mi-dor, 10 con-su-mi-do-res 1
+Underfull \hbox (badness 4048) in paragraph at lines 112--113
+\OT1/ptm/m/n/12 des-com-pre-sor de ar-chi-vos, se de-cla-ran va-rias
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 113--115
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 
-Underfull \hbox (badness 1383) in paragraph at lines 116--117
-\OT1/ptm/m/n/12 1.191s. Aqu[]^^P ya se pue-de ob-ser-var un patr[]on
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
-
- []
-
-
-Underfull \hbox (badness 4846) in paragraph at lines 118--119
-[]\OT1/ptm/m/n/12 Se con-ti-nua con la lec-tu-ra de otro PDF
- []
-
-
-Underfull \hbox (badness 4595) in paragraph at lines 118--119
-\OT1/ptm/m/n/12 de 4.2 MB. Sus tiem-pos res-pec-ti-vos fue-ron
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
-
+Underfull \hbox (badness 1831) in paragraph at lines 116--117
+\OT1/ptm/m/n/12 gu-men-to de l[]^^Pnea de co-man-dos, mien-tras que
  []
 
 
@@ -967,96 +978,56 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
-
- []
-
-
-Underfull \hbox (badness 1365) in paragraph at lines 122--123
-\OT1/ptm/m/n/12 vi-deo 8K. El vi-deo 4K HDR se ley[]o en un
- []
-
-
-Underfull \hbox (badness 1838) in paragraph at lines 122--123
-\OT1/ptm/m/n/12 de 38m 19.41s, si el pro-me-dio de di-fe-ren-cia
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 122--123
-
- []
-
-
-Underfull \hbox (badness 2951) in paragraph at lines 125--126
-[]\OT1/ptm/m/n/12 Se pue-de con-cluir que, por me-dio de los
- []
-
-
-Underfull \hbox (badness 1748) in paragraph at lines 125--126
-\OT1/ptm/m/n/12 can-ti-dad de hi-los pro-duc-to-res y con-su-mi-do-res,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 125--126
-
- []
-
-
-LaTeX Warning: Citation `portfoliocourses_2022_introduction' on page 5 undefine
-d on input line 127.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
-
- []
-
-
-Underfull \hbox (badness 1910) in paragraph at lines 134--135
-\OT1/ptm/m/n/12 ac-tual se pue-den rea-li-zar pro-ce-sos de ma-ne-ra
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
-
- []
-
-
-Underfull \hbox (badness 1975) in paragraph at lines 136--137
-\OT1/ptm/m/n/12 pro-yec-to aprend[]^^P so-bre el ma-ne-jo de hi-los y
- []
-
-
-Underfull \hbox (badness 2197) in paragraph at lines 136--137
-\OT1/ptm/m/n/12 ex-clu-sio-nes MU-TEX que per-mi-ten un ma-ne-jo
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 138--139
-[]\OT1/ptm/m/n/12 Diego Quir[]os Ar-ti[]nano: Aprend[]^^P co-mo
+
  []
 
 
-Underfull \hbox (badness 1389) in paragraph at lines 138--139
-\OT1/ptm/m/n/12 im-ple-men-tar la teor[]^^Pa que vi-mos en cla-se. El
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--139
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+
+ []
+
+
+LaTeX Warning: File `shortest tama√±o.png' not found on input line 144.
+
+
+! Package pdftex.def Error: File `shortest tama√±o.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144 ...idth=0.4\textwidth]{shortest tama√±o.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font pcrr7t!
+Missing character: There is no ± in font pcrr7t!
+
+LaTeX Warning: File `shortest tiempo.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `shortest tiempo.png' not found: using draft s
+etting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...width=0.4\textwidth]{shortest tiempo.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--146
 
  []
 
@@ -1069,6 +1040,144 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
 
 [5]
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
+
+
+LaTeX Warning: File `cat tama√±o.png' not found on input line 149.
+
+
+! Package pdftex.def Error: File `cat tama√±o.png' not found: using draft setti
+ng.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.149 ...ics[width=0.4\textwidth]{cat tama√±o.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font pcrr7t!
+Missing character: There is no ± in font pcrr7t!
+
+LaTeX Warning: File `cat tiempos.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `cat tiempos.png' not found: using draft setti
+ng.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ics[width=0.4\textwidth]{cat tiempos.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 149--151
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
+ []
+
+
+LaTeX Warning: File `ejemploclase tama√±o.png' not found on input line 154.
+
+
+! Package pdftex.def Error: File `ejemploclase tama√±o.png' not found: using dr
+aft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.154 ...=0.4\textwidth]{ejemploclase tama√±o.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font pcrr7t!
+Missing character: There is no ± in font pcrr7t!
+
+LaTeX Warning: File `ejemploclase tiempo.png' not found on input line 155.
+
+
+! Package pdftex.def Error: File `ejemploclase tiempo.png' not found: using dra
+ft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.155 ...h=0.4\textwidth]{ejemploclase tiempo.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--156
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+
+ []
+
+
+LaTeX Warning: File `biblia tama√±o.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `biblia tama√±o.png' not found: using draft se
+tting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...[width=0.4\textwidth]{biblia tama√±o.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font pcrr7t!
+Missing character: There is no ± in font pcrr7t!
+
+LaTeX Warning: File `biblia tiempos.png' not found on input line 160.
+
+
+! Package pdftex.def Error: File `biblia tiempos.png' not found: using draft se
+tting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.160 ...[width=0.4\textwidth]{biblia tiempos.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--161
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.91998pt, for example:
@@ -1077,7 +1186,377 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
 
-[6
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+
+ []
+
+
+LaTeX Warning: File `jpeg tama√±o.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `jpeg tama√±o.png' not found: using draft sett
+ing.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...cs[width=0.4\textwidth]{jpeg tama√±o.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font pcrr7t!
+Missing character: There is no ± in font pcrr7t!
+
+LaTeX Warning: File `jpeg tiempo.png' not found on input line 165.
+
+
+! Package pdftex.def Error: File `jpeg tiempo.png' not found: using draft setti
+ng.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.165 ...ics[width=0.4\textwidth]{jpeg tiempo.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--166
+
+ []
+
+
+Underfull \vbox (badness 3657) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+
+ []
+
+
+LaTeX Warning: File `raw tama√±o.png' not found on input line 169.
+
+
+! Package pdftex.def Error: File `raw tama√±o.png' not found: using draft setti
+ng.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.169 ...ics[width=0.4\textwidth]{raw tama√±o.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no √ in font pcrr7t!
+Missing character: There is no ± in font pcrr7t!
+
+LaTeX Warning: File `raw tiempo.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `raw tiempo.png' not found: using draft settin
+g.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...hics[width=0.4\textwidth]{raw tiempo.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 169--171
+
+ []
+
+
+Underfull \vbox (badness 3657) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.91998pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.91998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
+
+ []
+
+
+LaTeX Warning: File `shortest descomp.png' not found on input line 174.
+
+
+! Package pdftex.def Error: File `shortest descomp.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 ...idth=0.4\textwidth]{shortest descomp.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+
+ []
+
+
+LaTeX Warning: File `cat descomp.png' not found on input line 178.
+
+
+! Package pdftex.def Error: File `cat descomp.png' not found: using draft setti
+ng.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.178 ...ics[width=0.4\textwidth]{cat descomp.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
+
+ []
+
+
+LaTeX Warning: File `ejemploclase descomp.png' not found on input line 182.
+
+
+! Package pdftex.def Error: File `ejemploclase descomp.png' not found: using dr
+aft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.182 ...=0.4\textwidth]{ejemploclase descomp.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+
+ []
+
+
+LaTeX Warning: File `biblia descomp.png' not found on input line 186.
+
+
+! Package pdftex.def Error: File `biblia descomp.png' not found: using draft se
+tting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.186 ...[width=0.4\textwidth]{biblia descomp.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+
+ []
+
+
+LaTeX Warning: File `jpeg descomp.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `jpeg descomp.png' not found: using draft sett
+ing.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...cs[width=0.4\textwidth]{jpeg descomp.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.91998pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.91998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
+
+[8]
+Underfull \hbox (badness 1946) in paragraph at lines 192--193
+[]\OT1/ptm/m/n/12 Para el RAW .CR2 ob-tu-vie-ron los tiem-pos
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
+
+ []
+
+
+LaTeX Warning: File `jpeg descomp.png' not found on input line 194.
+
+
+! Package pdftex.def Error: File `jpeg descomp.png' not found: using draft sett
+ing.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.194 ...cs[width=0.4\textwidth]{jpeg descomp.png}
+                                                  \\
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
+
+ []
+
+
+Underfull \hbox (badness 2951) in paragraph at lines 197--198
+[]\OT1/ptm/m/n/12 Se pue-de con-cluir que, por me-dio de los
+ []
+
+
+Underfull \hbox (badness 1748) in paragraph at lines 197--198
+\OT1/ptm/m/n/12 can-ti-dad de hi-los pro-duc-to-res y con-su-mi-do-res,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+
+LaTeX Warning: Citation `portfoliocourses_2022_introduction' on page 9 undefine
+d on input line 199.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
+
+ []
+
+
+Underfull \hbox (badness 1910) in paragraph at lines 206--207
+\OT1/ptm/m/n/12 ac-tual se pue-den rea-li-zar pro-ce-sos de ma-ne-ra
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+ []
+
+
+Underfull \hbox (badness 1975) in paragraph at lines 208--209
+\OT1/ptm/m/n/12 pro-yec-to aprend[]^^P so-bre el ma-ne-jo de hi-los y
+ []
+
+
+Underfull \hbox (badness 2197) in paragraph at lines 208--209
+\OT1/ptm/m/n/12 ex-clu-sio-nes MU-TEX que per-mi-ten un ma-ne-jo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+[]\OT1/ptm/m/n/12 Diego Quir[]os Ar-ti[]nano: Aprend[]^^P co-mo
+ []
+
+
+Underfull \hbox (badness 1389) in paragraph at lines 210--211
+\OT1/ptm/m/n/12 im-ple-men-tar la teor[]^^Pa que vi-mos en cla-se. El
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.91998pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.91998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
+
+[9]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.91998pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.91998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.91998pt}.
+
+[10
 
 ]
 No file document.bbl.
@@ -1090,20 +1569,20 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15631 strings out of 476025
- 311225 string characters out of 5796532
- 1870388 words of memory out of 5000000
- 35831 multiletter control sequences out of 15000+600000
- 543382 words of font info for 82 fonts, out of 8000000 for 9000
+ 16207 strings out of 476025
+ 326501 string characters out of 5796532
+ 1872388 words of memory out of 5000000
+ 36359 multiletter control sequences out of 15000+600000
+ 546792 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,12n,104p,2088b,365s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,12n,104p,2041b,365s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-d
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/tim
 es/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on document.pdf (8 pages, 76954 bytes).
+Output written on document.pdf (12 pages, 89308 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 67 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
